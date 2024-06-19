@@ -9,7 +9,7 @@ from pyspark.sql.window import Window
 
 
 def load_and_prep():
-    stocks = spark.read.option("header", True).csv("s3://.../stock_prices.csv", inferSchema=True)
+    stocks = spark.read.option("header", True).csv("s3://ron-levy-bucket-for-vi/stock_prices.csv", inferSchema=True)
     stocks = stocks.withColumn('date',F.to_date("date","M/d/yyyy"))
     stocks = stocks.orderBy(["ticker", "date"], ascending=True)
     windowSpec  = Window.partitionBy("ticker").orderBy("date")
